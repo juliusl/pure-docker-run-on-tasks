@@ -31,3 +31,11 @@ failed to run step ID: scratchscriptsverify: exit status 1
 ```
 
 Which will stop the multi-step tasks from completeing.
+
+# Caveats
+
+If you write a line like this in your tasks.yaml
+```
+- cmd: docker run <image> /bin/sh $ENV_VAR/<path-to-some-script>.sh
+```
+Realize that the $ENV_VAR will be the $ENV_VAR from the caller, not the $ENV_VAR from inside of the container. However, the $ENV_VAR will be set to the container's $ENV_VAR when the script is actually run since it's running from within the container. This should be pretty easy to work around but it's something to be aware of.
