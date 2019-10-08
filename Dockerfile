@@ -1,4 +1,4 @@
-FROM alpine
+FROM ubuntu
 
 ENV HOME="/home/test"
 
@@ -10,5 +10,7 @@ COPY ./scripts $HOME/scripts/
 
 # I'm running from a windows machine so when I authored the .sh it used windows line endings, this 
 # fixes that
-RUN apk add dos2unix & dos2unix $HOME/scripts/*.sh
+RUN apt-get update
+RUN apt-get install dos2unix
+RUN dos2unix $HOME/scripts/*.sh
 RUN chmod ugo+rwx $HOME/scripts/validate-ssh.sh

@@ -1,9 +1,16 @@
-version: v1.0.0
+version: v1.1.0
+alias:
+  values:
+    dockerRun: docker run
+    regex: "^[A-Z].*\.$"
 steps:
-  - build: -t {{.Run.Registry}}/scratch:mk1 --build-arg REG_NAME={{.Run.Registry}} -f Dockerfile .
+  - build: -t $Registry/scratch:mk1 --build-arg REG_NAME=$Registry -f Dockerfile .
     id: scratchscripts
-  - cmd: docker run {{.Run.Registry}}/scratch:mk1 /bin/sh /home/test/scripts/validate-ssh.sh
+  - cmd: $dockerRun $Registry/scratch:mk1 /bin/sh /home/test/scripts/validate-ssh.sh
     id: scratchscriptsverify
     detatch: false
+  - cmd: $dockerRun $Registry/scratch:mk1 grep $regex /usr/share/common-licenses/GPL-3
+    id: scratchscriptsverify2
+    detatch: false
   - push:
-    - "{{.Run.Registry}}/scratch:mk1"
+    - "$Registry/scratch:mk1"
