@@ -2,7 +2,7 @@ version: v1.0.0
 steps:
   - build: -t {{.Run.Registry}}/scratch:demo --build-arg REG_NAME={{.Run.Registry}} -f Dockerfile .
     id: scratchscripts
-  - cmd: docker run {{.Run.Registry}}/scratch:demo /bin/sh /home/test/scripts/demo_discover.sh
+  - cmd: docker run {{.Run.Registry}}/scratch:demo /bin/sh /home/orasdiscover/scripts/demo_discover.sh
     id: scratchscriptsverify
     detatch: false
   - push:
