@@ -1,6 +1,6 @@
-#!/bin/bash\n
+#!/bin/bash
 
-if [ -f $HOME/.ssh/ssh_config ]
+if [ -f "$HOME/.ssh/ssh_config" ]
 then
         echo "Found folder"
         exit 0
