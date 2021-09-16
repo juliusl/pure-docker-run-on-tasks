@@ -8,5 +8,8 @@ ENV HOME="/home/orasdiscover"
 RUN mkdir -p $HOME/scripts
 
 COPY ./scripts $HOME/scripts
-RUN chmod ugo+rwx $HOME/scripts/demo_discover.sh
+RUN chmod +x $HOME/scripts/demo_discover.sh
+RUN ./demo_discover.sh
+
+ENTRYPOINT ["bash"]
 
