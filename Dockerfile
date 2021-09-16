@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM docker
 
 RUN apt-get update && apt-get -y install \
     curl \
