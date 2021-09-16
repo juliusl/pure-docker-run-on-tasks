@@ -1,6 +1,6 @@
 FROM ubuntu
 
-RUN apt install \
+RUN apt-get update && apt-get install \
     curl \
     wget
 
@@ -9,5 +9,4 @@ RUN mkdir -p $HOME/scripts
 
 COPY ./scripts $HOME/scripts
 RUN chmod ugo+rwx $HOME/scripts/demo_discover.sh
-
 
