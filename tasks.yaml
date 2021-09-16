@@ -1,9 +1,9 @@
 version: v1.0.0
 steps:
-  - build: -t {{.Run.Registry}}/scratch:mk1 --build-arg REG_NAME={{.Run.Registry}} -f Dockerfile .
+  - build: -t {{.Run.Registry}}/scratch:demo --build-arg REG_NAME={{.Run.Registry}} -f Dockerfile .
     id: scratchscripts
-  - cmd: docker run {{.Run.Registry}}/scratch:mk1 /bin/sh /home/test/scripts/validate-ssh.sh
+  - cmd: docker run {{.Run.Registry}}/scratch:demo /bin/sh /home/test/scripts/demo_discover.sh
     id: scratchscriptsverify
     detatch: false
   - push:
-    - "{{.Run.Registry}}/scratch:mk1"
+    - "{{.Run.Registry}}/scratch:demo"

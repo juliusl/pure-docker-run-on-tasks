@@ -1,14 +1,9 @@
-FROM alpine
+FROM ubuntu
 
-ENV HOME="/home/test"
+ENV HOME="/home/orasdiscover"
+RUN mkdir -p $HOME/scripts
 
-RUN mkdir $HOME $HOME/.ssh $HOME/scripts
+COPY ./scripts $HOME/scripts/demo_discover.sh
+RUN chmod ugo+rwx $HOME/scripts/demo_discover.sh
 
-# Comment the next line if you want to simulate a failure in the tasks.yaml file
-COPY ./config $HOME/.ssh/
-COPY ./scripts $HOME/scripts/
 
-# I'm running from a windows machine so when I authored the .sh it used windows line endings, this 
-# fixes that
-RUN apk add dos2unix & dos2unix $HOME/scripts/*.sh
-RUN chmod ugo+rwx $HOME/scripts/validate-ssh.sh
