@@ -9,7 +9,7 @@ RUN mkdir -p $HOME/scripts
 
 COPY ./scripts $HOME/scripts
 RUN chmod +x $HOME/scripts/demo_discover.sh
-RUN ./demo_discover.sh
+RUN $HOME/scripts/demo_discover.sh
 
 ENTRYPOINT ["bash"]
 
