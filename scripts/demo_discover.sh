@@ -25,9 +25,9 @@ alias go=/usr/local/go/bin/go
 git clone https://github.com/oras-project/distribution
 cd './distribution' || exit
 git checkout artifacts 
-go build ./cmd/registry/main.go
 ls
-./cmd/registry/main serve config-dev.yml &
+go build  /home/orasdiscover/scripts/distribution/registry/main.go
+/home/orasdiscover/scripts/distribution/registry/main serve config-dev.yml &
 
 docker build -t $IMAGE https://github.com/wabbit-networks/net-monitor.git#main
 docker push $IMAGE
