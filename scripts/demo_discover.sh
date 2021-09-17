@@ -26,7 +26,8 @@ git clone https://github.com/oras-project/distribution
 cd './distribution' || exit
 git checkout artifacts 
 go build cmd/registry/main.go
-cmd/registry/main serve config-dev.yml &
+ls
+./cmd/registry/main serve config-dev.yml &
 
 docker build -t $IMAGE https://github.com/wabbit-networks/net-monitor.git#main
 docker push $IMAGE
