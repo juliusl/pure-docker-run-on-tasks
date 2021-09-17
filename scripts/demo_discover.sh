@@ -25,7 +25,7 @@ alias go=/usr/local/go/bin/go
 git clone https://github.com/oras-project/distribution
 cd './distribution' || exit
 git checkout artifacts 
-go build cmd/registry/main.go
+go build ./cmd/registry/main.go
 ls
 ./cmd/registry/main serve config-dev.yml &
 
