@@ -17,8 +17,17 @@ REGISTRY=localhost:${PORT}
 REPO=net-monitor
 IMAGE=${REGISTRY}/${REPO}:v1
 
-# It's actually easier to just clone distribution then it is to install docker and pull/run an image
-docker run -d -p ${PORT}:5000 ghcr.io/oras-project/registry:v0.0.3-alpha
+wget https://golang.org/dl/go1.17.1.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.17.1.linux-amd64.tar.gz
+
+alias go=/usr/local/go/bin/go
+
+git clone https://github.com/oras-project/distribution
+cd './distribution' || exit
+git checkout artifacts 
+go build cmd/registry/main.go
+cmd/registry/main serve config-dev.yml &
+
 docker build -t $IMAGE https://github.com/wabbit-networks/net-monitor.git#main
 docker push $IMAGE
 
@@ -37,3 +46,6 @@ oras push $REGISTRY/$REPO \
 oras discover -o tree --artifact-type=sbom/example $IMAGE
 
 oras pull -a "${REGISTRY}/${REPO}@$(oras discover -o json --artifact-type scan-result/example $IMAGE | jq -r .references[0].digest)"
+
+tail -f /var/log/containers/* /var/log/docker.log 2>&1
+
