@@ -46,7 +46,7 @@ oras push $REGISTRY/$REPO \
 
 oras discover -o tree --artifact-type=sbom/example $IMAGE
 
-oras pull -a "${REGISTRY}/${REPO}@$(oras discover -o json --artifact-type scan-result/example $IMAGE | jq -r .references[0].digest)"
+oras pull -a "${REGISTRY}/${REPO}@$(oras discover -o json --artifact-type signature/example $IMAGE | jq -r .references[0].digest)"
 
-tail -f /var/log/containers/* /var/log/docker.log 2>&1
+tail -f /var/log/containers/* /var/log/docker.log | awk '{printf "\033[33m%s\033[39m", $0 }' 2>&1
 
